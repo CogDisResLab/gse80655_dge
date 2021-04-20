@@ -48,4 +48,6 @@ grouped_sections %>%
   map2(group_names, ~ write_csv(.x, str_glue("data/{.y}-metadata.csv"))) %>%
   map(~pull(.x, `Sample-ID`)) %>%
   map(~ dplyr::select(counts_symboled, all_of(c("symbol", .x)))) %>%
+  map(~ dplyr::group_by(.x, symbol)) %>%
+  map(~ dplyr::summarise(.x, across(where(is.numeric), sum))) %>%
   map2(group_names, ~ write_csv(.x, str_glue("data/{.y}-counts.csv")))
