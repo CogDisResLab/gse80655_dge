@@ -11,18 +11,7 @@ process_dge <- function(dge, design, num_genes = 10) {
   qlf <- glmQLFTest(fit, contrast = c(-1, 1))
 
   table <- qlf$table
-  table$Symbol <- mapIds(org.Hs.eg.db, keys = rownames(table),
-                         column = "SYMBOL", keytype = "ENSEMBL",
-                         multiVals = "first")
-  table <- table %>%
-    rownames_to_column("Gene_ID") %>%
-    dplyr::select(Gene_ID, Symbol, everything())
-
   top <- topTags(qlf, n = num_genes)
-
-  top_gene_names <- mapIds(org.Hs.eg.db, keys = rownames(top),
-                           column = "SYMBOL", keytype = "ENSEMBL",
-                           multiVals = "first")
 
   mat <- dge$counts[rownames(top),]
 
@@ -35,7 +24,7 @@ process_dge <- function(dge, design, num_genes = 10) {
     summary = summary(decideTests(qlf)),
     count_matrix = mat,
     logcpm_matrix = mcpm,
-    row_values = top_gene_names,
+    row_values = rownames(top),
     complete_table = table)
 
   return(output)
