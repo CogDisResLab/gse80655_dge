@@ -4,8 +4,8 @@ library(tidyverse)
 library(edgeR)
 source("process_dge_fun.R")
 
-counts_file <- "data/DLPFC_female-counts.csv"
-metadata_file <- "data/DLPFC_female-metadata.csv"
+counts_file <- "data/DLPFC_female-mdd-counts.csv"
+metadata_file <- "data/DLPFC_female-mdd-metadata.csv"
 
 counts <- read_csv(counts_file) %>%
   column_to_rownames("symbol")
@@ -25,6 +25,6 @@ out_filtered <- process_dge(dge_filtered, design_matrix, num_genes = 1000)
 
 out_filtered$complete_table %>%
   rownames_to_column("gene_name") %>%
-  write_csv("results/female_dlpfc_dge.csv")
+  write_csv("results/female_mdd_dlpfc_dge.csv")
 
-save(out_filtered, file = "results/female_dlpfc_dge.RData")
+save(out_filtered, file = "results/female_mdd_dlpfc_dge.RData")
