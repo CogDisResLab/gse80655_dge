@@ -1,0 +1,7 @@
+Sample-ID,brain_region,gender,clinical_diagnosis
+SL6655,DLPFC,female,Schizophrenia
+SL7393,DLPFC,female,Control
+SL7396,DLPFC,female,Schizophrenia
+SL7625,DLPFC,female,Control
+SL7632,DLPFC,female,Control
+SL7805,DLPFC,female,Schizophrenia
