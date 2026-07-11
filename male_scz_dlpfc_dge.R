@@ -19,7 +19,7 @@ design_matrix <- model.matrix(~ 0 + groups)
 dge <- DGEList(counts = counts, group = groups)
 
 keep <- filterByExpr(dge)
-dge_filtered <- dge[keep, , keep.lib.sizes=FALSE]
+dge_filtered <- dge[keep, , keep.lib.sizes = FALSE]
 
 out_filtered <- process_dge(dge_filtered, design_matrix, num_genes = 1000)
 
