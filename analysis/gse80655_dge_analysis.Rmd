@@ -1,0 +1,206 @@
+---
+title: "GSE80655 Differential Expression Analysis with drugfindR"
+author: "Analysis Pipeline"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    theme: cosmo
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Overview
+
+This R Markdown document processes GSE80655 differential expression data and applies drugfindR for drug-gene interaction analysis.
+
+## Load Required Packages
+
+```{r load-packages}
+library(drugfindR)
+library(tidyverse)
+library(readr)
+library(ggplot2)
+library(pheatmap)
+```
+
+## Load Processed Data
+
+```{r load-data}
+# Load count data
+counts <- read_csv("../data/processed/gse80655_counts.csv")
+
+# Load metadata
+metadata <- read_csv("../data/processed/gse80655_metadata.csv")
+
+# View data structure
+cat("Counts dimensions:", dim(counts), "\n")
+cat("Metadata dimensions:", dim(metadata), "\n")
+cat("\nMetadata columns:\n")
+print(colnames(metadata))
+```
+
+## Data Summary
+
+```{r data-summary}
+# Check sample information
+cat("\nSample information:\n")
+print(metadata)
+
+# Check for any missing values
+cat("\nMissing values in counts:\n")
+print(colSums(is.na(counts)))
+
+cat("\nMissing values in metadata:\n")
+print(colSums(is.na(metadata)))
+```
+
+## Differential Expression Analysis
+
+```{r dge-analysis}
+# Define comparison groups
+comparisons <- list(
+  ancg = list(
+    female = list(bpd = "female_bpd", mdd = "female_mdd", scz = "female_scz"),
+    male = list(bpd = "male_bpd", mdd = "male_mdd", scz = "male_scz")
+  ),
+  dlpfc = list(
+    female = list(bpd = "dlpfc_female_bpd", mdd = "dlpfc_female_mdd", scz = "dlpfc_female_scz"),
+    male = list(bpd = "dlpfc_male_bpd", mdd = "dlpfc_male_mdd", scz = "dlpfc_male_scz")
+  ),
+  nacc = list(
+    female = list(bpd = "nacc_female_bpd", mdd = "nacc_female_mdd", scz = "nacc_female_scz"),
+    male = list(bpd = "nacc_male_bpd", mdd = "nacc_male_mdd", scz = "nacc_male_scz")
+  )
+)
+
+# Run differential expression analysis for each comparison
+dge_results <- list()
+
+for (region in names(comparisons)) {
+  for (gender in names(comparisons[[region]])) {
+    for (diagnosis in names(comparisons[[region]][[gender]])) {
+      condition <- comparisons[[region]][[gender]][[diagnosis]]
+
+      cat("\nProcessing:", region, gender, diagnosis, "(", condition, ")\n")
+
+      # Subset data for this comparison
+      samples <- metadata %>%
+        filter(condition == condition) %>%
+        pull(sample_id)
+
+      if (length(samples) < 3) {
+        cat("  Skipping: insufficient samples\n")
+        next
+      }
+
+      # Create design matrix
+      design <- model.matrix(~0 + factor(metadata$condition))
+      colnames(design) <- unique(metadata$condition)
+
+      # Run DESeq2
+      dds <- DESeqDataSetFromMatrix(countData = counts[, samples],
+                                    colData = metadata,
+                                    design = ~ condition)
+
+      dds <- DESeq(dds)
+
+      # Get results
+      res <- results(dds, contrast = c("condition", condition, condition))
+
+      # Store results
+      dge_results[[condition]] <- res
+
+      cat("  Completed\n")
+    }
+  }
+}
+```
+
+## drugfindR Analysis
+
+```{r drugfindr-analysis}
+# Run drugfindR on each comparison
+drugfind_results <- list()
+
+for (condition in names(dge_results)) {
+  cat("\nRunning drugfindR on:", condition, "\n")
+
+  tryCatch({
+    # Run drugfind
+    result <- drugfind(dge_results[[condition]])
+
+    # Store results
+    drugfind_results[[condition]] <- result
+
+    cat("  Completed\n")
+
+  }, error = function(e) {
+    cat("  Error:", e$message, "\n")
+  })
+}
+```
+
+## Summary of Results
+
+```{r summary-results}
+cat("\n=== Summary of drugfindR Results ===\n\n")
+
+for (condition in names(drugfind_results)) {
+  result <- drugfind_results[[condition]]
+
+  cat("Comparison:", condition, "\n")
+  cat("  Total genes analyzed:", nrow(result), "\n")
+  cat("  Significant genes (FDR < 0.05):", sum(result$padj < 0.05), "\n")
+  cat("  Significant genes (FDR < 0.01):", sum(result$padj < 0.01), "\n")
+  cat("  Significant genes (FDR < 0.001):", sum(result$padj < 0.001), "\n")
+  cat("\n")
+}
+```
+
+## Export Results
+
+```{r export-results}
+# Export individual comparison results
+for (condition in names(drugfind_results)) {
+  result <- drugfind_results[[condition]]
+
+  output_file <- paste0("results/drugfind_", condition, ".csv")
+  dir.create("results", showWarnings = FALSE)
+
+  write_csv(result, output_file)
+  cat("Exported:", output_file, "\n")
+}
+```
+
+## Visualizations
+
+```{r visualizations}
+# Plot significant genes per comparison
+comparison_names <- names(drugfind_results)
+sig_counts <- sapply(drugfind_results, function(x) sum(x$padj < 0.05))
+
+df_plot <- data.frame(
+  comparison = comparison_names,
+  significant = sig_counts
+) %>%
+  mutate(comparison = factor(comparison, levels = comparison_names))
+
+ggplot(df_plot, aes(x = comparison, y = significant, fill = comparison)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Significant Genes by Comparison (FDR < 0.05)",
+       x = "Comparison",
+       y = "Number of Significant Genes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Session Information
+
+```{r session-info}
+sessionInfo()
+```
