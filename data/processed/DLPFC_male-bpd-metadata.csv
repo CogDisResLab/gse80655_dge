@@ -1,0 +1,37 @@
+Sample-ID,brain_region,gender,clinical_diagnosis
+SL32229,DLPFC,male,Bipolar Disorder
+SL32232,DLPFC,male,Bipolar Disorder
+SL32242,DLPFC,male,Control
+SL32243,DLPFC,male,Control
+SL32244,DLPFC,male,Control
+SL32249,DLPFC,male,Control
+SL32257,DLPFC,male,Bipolar Disorder
+SL32259,DLPFC,male,Bipolar Disorder
+SL5885,DLPFC,male,Bipolar Disorder
+SL5886,DLPFC,male,Control
+SL5887,DLPFC,male,Bipolar Disorder
+SL5999,DLPFC,male,Control
+SL6000,DLPFC,male,Control
+SL6128,DLPFC,male,Control
+SL6129,DLPFC,male,Control
+SL6131,DLPFC,male,Bipolar Disorder
+SL6340,DLPFC,male,Control
+SL6342,DLPFC,male,Bipolar Disorder
+SL6411,DLPFC,male,Bipolar Disorder
+SL6412,DLPFC,male,Control
+SL6413,DLPFC,male,Control
+SL6609,DLPFC,male,Control
+SL6611,DLPFC,male,Bipolar Disorder
+SL6642,DLPFC,male,Bipolar Disorder
+SL6643,DLPFC,male,Control
+SL7141,DLPFC,male,Control
+SL7142,DLPFC,male,Bipolar Disorder
+SL7152,DLPFC,male,Control
+SL7153,DLPFC,male,Bipolar Disorder
+SL7381,DLPFC,male,Control
+SL7383,DLPFC,male,Control
+SL7614,DLPFC,male,Control
+SL7697,DLPFC,male,Bipolar Disorder
+SL7804,DLPFC,male,Control
+SL7807,DLPFC,male,Control
+SL7847,DLPFC,male,Bipolar Disorder
