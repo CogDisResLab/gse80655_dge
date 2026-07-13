@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.6.0",
+    "Version": "4.6.1",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -352,6 +352,53 @@
       "Author": "R Special Interest Group on Databases (R-SIG-DB) [aut], Hadley Wickham [aut], Kirill Müller [aut, cre] (ORCID: <https://orcid.org/0000-0002-1416-3412>), R Consortium [fnd]",
       "Maintainer": "Kirill Müller <kirill@cynkra.com>",
       "Repository": "CRAN"
+    },
+    "DFplyr": {
+      "Package": "DFplyr",
+      "Version": "1.6.0",
+      "Source": "Bioconductor",
+      "Title": "A `DataFrame` (`S4Vectors`) backend for `dplyr`",
+      "Authors@R": "c(person(\"Jonathan\", \"Carroll\",  email = \"rpkg@jcarroll.com.au\",  role = c(\"aut\", \"cre\"),  comment = c(ORCID = \"0000-0002-1404-5264\")), person(\"Pierre-Paul\", \"Axisa\", role=c(\"ctb\")))",
+      "Description": "Provides `dplyr` verbs (`mutate`, `select`, `filter`, etc...)  supporting `S4Vectors::DataFrame` objects. Importantly, this is achieved  without conversion to an intermediate `tibble`. Adds grouping  infrastructure to `DataFrame` which is respected by the transformation  verbs.",
+      "biocViews": "DataRepresentation, Infrastructure, Software",
+      "License": "GPL-3",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.3",
+      "URL": "https://github.com/jonocarroll/DFplyr",
+      "BugReports": "https://github.com/jonocarroll/DFplyr/issues",
+      "Depends": [
+        "R (>= 4.1.0)",
+        "dplyr"
+      ],
+      "Imports": [
+        "BiocGenerics",
+        "methods",
+        "rlang",
+        "S4Vectors",
+        "tidyselect"
+      ],
+      "Suggests": [
+        "BiocStyle",
+        "GenomeInfoDb",
+        "GenomicRanges",
+        "IRanges",
+        "knitr",
+        "rmarkdown",
+        "sessioninfo",
+        "testthat (>= 3.0.0)",
+        "tibble"
+      ],
+      "VignetteBuilder": "knitr",
+      "Config/testthat/edition": "3",
+      "Roxygen": "list(markdown = TRUE)",
+      "git_url": "https://git.bioconductor.org/packages/DFplyr",
+      "git_branch": "RELEASE_3_23",
+      "git_last_commit": "fbb4f81",
+      "git_last_commit_date": "2026-04-28",
+      "Repository": "Bioconductor 3.23",
+      "NeedsCompilation": "no",
+      "Author": "Jonathan Carroll [aut, cre] (ORCID: <https://orcid.org/0000-0002-1404-5264>), Pierre-Paul Axisa [ctb]",
+      "Maintainer": "Jonathan Carroll <rpkg@jcarroll.com.au>"
     },
     "IRanges": {
       "Package": "IRanges",
@@ -1628,6 +1675,68 @@
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
+    "drugfindR": {
+      "Package": "drugfindR",
+      "Version": "1.0.0",
+      "Source": "Bioconductor",
+      "Title": "Investigate iLINCS for candidate repurposable drugs",
+      "Authors@R": "c( person(given = c(\"Ali\", \"Sajid\"), family = \"Imami\", role = c(\"aut\", \"cre\"), email = \"Ali.Sajid.Imami@gmail.com\", comment = c(ORCID = \"0000-0003-3684-3539\")), person(given = c(\"Smita\"), family = \"Sahay\", role = c(\"aut\"), email = \"Smita.Sahay@rockets.utoledo.edu\", comment = c(ORCID = \"0009-0003-4377-8963\")), person(given = c(\"Justin\", \"Fortune\"), family = \"Creeden\", role = c(\"aut\"), email = \"Justin.Creeden@rockets.utoledo.edu\", comment = c(ORCID = \"0000-0003-3123-8401\")), person(given = c(\"Robert\", \"Erne\"), family = \"McCullumsmith\", role = c(\"ctb\", \"fnd\"), email = \"Robert.McCullumsmith@utoledo.edu\", comment = c(ORCID = \"0000-0001-6921-7150\")) )",
+      "Description": "This package provides a convenient way to access the LINCS Signatures available in the iLINCS database. These signatures include Consensus Gene Knockdown Signatures, Gene Overexpression signatures and Chemical Perturbagen Signatures. It also provides a way to enter your own transcriptomic signatures and identify concordant and discordant signatures in the LINCS database.",
+      "License": "GPL-3 + file LICENSE",
+      "Encoding": "UTF-8",
+      "URL": "https://github.com/CogDisResLab/drugfindR, https://cogdisreslab.github.io/drugfindR/",
+      "BugReports": "https://github.com/CogDisResLab/drugfindR/issues",
+      "Roxygen": "list(markdown = TRUE)",
+      "RoxygenNote": "7.3.3",
+      "biocViews": "FunctionalPrediction, DifferentialExpression, GeneSetEnrichment, SingleCell, Network",
+      "Imports": [
+        "tibble",
+        "rlang",
+        "dplyr",
+        "purrr",
+        "readr",
+        "stringr",
+        "stats",
+        "lifecycle",
+        "S4Vectors",
+        "httr2",
+        "curl",
+        "DFplyr"
+      ],
+      "Depends": [
+        "R (>= 4.5.0)"
+      ],
+      "Suggests": [
+        "AnnotationDbi",
+        "BiocStyle",
+        "biocthis",
+        "codemetar",
+        "devtools",
+        "here",
+        "httptest2",
+        "jsonlite",
+        "knitr",
+        "rmarkdown",
+        "testthat (>= 3.0.0)",
+        "tidyverse",
+        "usethis"
+      ],
+      "Config/testthat/edition": "3",
+      "Config/testthat/parallel": "true",
+      "VignetteBuilder": "knitr",
+      "X-schema.org-applicationCategory": "Genomics",
+      "X-schema.org-keywords": "LINCS, iLINCS, drug repurposing, drug discovery, transcriptomics, gene expression, gene knockdown, gene overexpression, chemical perturbagen, drugfindR",
+      "X-schema.org-isPartOf": "https://bioconductor.org",
+      "Collate": "'utilities.R' 'consensusConcordants.R' 'drugfindR-package.R' 'filterSignature.R' 'getConcordants.R' 'getSignature.R' 'prepareSignature.R' 'investigateSignature.R' 'investigateTarget.R'",
+      "git_url": "https://git.bioconductor.org/packages/drugfindR",
+      "git_branch": "RELEASE_3_23",
+      "git_last_commit": "6fa8860",
+      "git_last_commit_date": "2026-04-28",
+      "Repository": "Bioconductor 3.23",
+      "NeedsCompilation": "no",
+      "Author": "Ali Sajid Imami [aut, cre] (ORCID: <https://orcid.org/0000-0003-3684-3539>), Smita Sahay [aut] (ORCID: <https://orcid.org/0009-0003-4377-8963>), Justin Fortune Creeden [aut] (ORCID: <https://orcid.org/0000-0003-3123-8401>), Robert Erne McCullumsmith [ctb, fnd] (ORCID: <https://orcid.org/0000-0001-6921-7150>)",
+      "Maintainer": "Ali Sajid Imami <Ali.Sajid.Imami@gmail.com>"
+    },
     "dtplyr": {
       "Package": "dtplyr",
       "Version": "1.3.3",
@@ -2490,6 +2599,67 @@
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
+    "httr2": {
+      "Package": "httr2",
+      "Version": "1.2.3",
+      "Source": "Repository",
+      "Title": "Perform HTTP Requests and Process the Responses",
+      "Authors@R": "c( person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\")), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")), person(\"Maximilian\", \"Girlich\", role = \"ctb\") )",
+      "Description": "Tools for creating and modifying HTTP requests, then performing them and processing the results. 'httr2' is a modern re-imagining of 'httr' that uses a pipe-based interface and solves more of the problems that API wrapping packages face.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://httr2.r-lib.org, https://github.com/r-lib/httr2",
+      "BugReports": "https://github.com/r-lib/httr2/issues",
+      "Depends": [
+        "R (>= 4.1)"
+      ],
+      "Imports": [
+        "cli (>= 3.0.0)",
+        "curl (>= 6.4.0)",
+        "glue",
+        "lifecycle",
+        "magrittr",
+        "openssl",
+        "R6",
+        "rappdirs",
+        "rlang (>= 1.1.0)",
+        "vctrs (>= 0.6.3)",
+        "withr"
+      ],
+      "Suggests": [
+        "askpass",
+        "bench",
+        "clipr",
+        "covr",
+        "digest",
+        "docopt",
+        "httpuv",
+        "jose",
+        "jsonlite",
+        "knitr",
+        "later (>= 1.4.0)",
+        "nanonext",
+        "otel (>= 0.2.0)",
+        "otelsdk (>= 0.2.0)",
+        "paws.common (>= 0.8.0)",
+        "promises",
+        "rmarkdown",
+        "testthat (>= 3.1.8)",
+        "tibble",
+        "webfakes (>= 1.4.0)",
+        "xml2"
+      ],
+      "VignetteBuilder": "knitr",
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "Config/roxygen2/version": "8.0.0",
+      "Config/testthat/edition": "3",
+      "Config/testthat/parallel": "true",
+      "Config/testthat/start-first": "resp-stream, req-perform",
+      "Encoding": "UTF-8",
+      "NeedsCompilation": "no",
+      "Author": "Hadley Wickham [aut, cre], Posit Software, PBC [cph, fnd], Maximilian Girlich [ctb]",
+      "Maintainer": "Hadley Wickham <hadley@posit.co>",
+      "Repository": "CRAN"
+    },
     "ids": {
       "Package": "ids",
       "Version": "1.0.1",
@@ -3146,6 +3316,36 @@
       "NeedsCompilation": "no",
       "Author": "Gábor Csárdi [aut, cre]",
       "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
+      "Repository": "CRAN"
+    },
+    "pheatmap": {
+      "Package": "pheatmap",
+      "Version": "1.0.13",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Pretty Heatmaps",
+      "Date": "2025-06-05",
+      "Authors@R": "person(given = \"Raivo\", family = \"Kolde\", role = c(\"aut\", \"cre\"), email = \"rkolde@gmail.com\")",
+      "Depends": [
+        "R (>= 2.0)"
+      ],
+      "Description": "Implementation of heatmaps that offers more control over dimensions and appearance.",
+      "Imports": [
+        "grid",
+        "RColorBrewer",
+        "scales",
+        "gtable",
+        "stats",
+        "grDevices",
+        "graphics"
+      ],
+      "License": "GPL-2",
+      "Encoding": "UTF-8",
+      "LazyLoad": "yes",
+      "RoxygenNote": "7.3.2",
+      "NeedsCompilation": "no",
+      "Author": "Raivo Kolde [aut, cre]",
+      "Maintainer": "Raivo Kolde <rkolde@gmail.com>",
       "Repository": "CRAN"
     },
     "pillar": {
